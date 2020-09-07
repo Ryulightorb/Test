@@ -16,21 +16,24 @@ import javax.swing.JLabel;
  *
  * @author Nathan
  */
+
 public class accidentCreate extends JFrame implements ActionListener {
 private VehicleRego Rego;
+private String Plate;
 private Panel Panel = new Panel();
 private JLabel idLabel,locationLabel,dateLabel,commentsLabel,selectVehicleLabel,vehicleListLabel;
 private JTextField idField,locationField,dateField,commentsField;
 private TextArea listArea;
 private JButton addVehicleButton;
 private JComboBox vehicleCB; 
-ArrayList<Vehicle> Vehicles = new ArrayList<Vehicle>();    
-
+ArrayList<Vehicle> Vehicles = new ArrayList<>();    
+String[] Plates = new String[50];
  public accidentCreate() {
      
- //set up arrays and Combo box
- Rego = new VehicleRego();
- this.Vehicles = Rego.getVehicles();
+    //set up arrays and Combo box
+    String Plates[] = Rego.findPlate();
+    
+ 
  // instantiate Labels and buttons etc
  getContentPane().setBackground(new java.awt.Color(255, 218, 185));
  idLabel = new JLabel("Accident ID:");
@@ -44,7 +47,7 @@ ArrayList<Vehicle> Vehicles = new ArrayList<Vehicle>();
  locationField = new JTextField(20);
  dateField = new JTextField(10);
  commentsField = new JTextField(50);
- JComboBox vehicleCB = new JComboBox();
+ JComboBox vehicleCB = new JComboBox(Plates);
  // set panel 
  Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
  

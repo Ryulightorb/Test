@@ -45,9 +45,12 @@ public class VehicleRego extends JFrame implements ActionListener {
     private Panel fullmiddlePanel = new Panel();
     ArrayList<Owner> Owners = new ArrayList<Owner>();
     ArrayList<Vehicle> Vehicles = new ArrayList<Vehicle>();
-
-    public  ArrayList<Vehicle> getVehicles() {
-        return Vehicles;
+    String[] Plates = new String[Vehicles.size()];
+    
+    public String[] findPlate() {
+        
+    return (Plates);
+    
     }
 
     
@@ -440,11 +443,17 @@ public class VehicleRego extends JFrame implements ActionListener {
         });
             
         accidentEntryButton.addActionListener(event -> {
-       
+            
+            
+        for (int i = 0; i < Vehicles.size(); i++) {
+        Plates[i] = String.valueOf(Vehicles.get(i).getPlateNumber()); 
+         
+        }
         accidentCreate create = new accidentCreate();
         create.setVisible(true);
         create.setSize(700, 465);
-            
+        
+        
         });
     
     }
