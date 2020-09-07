@@ -84,8 +84,11 @@ public class Vehicle {
     
       public String toString() {           
       return "Plate Number:" + plateNumber + " \nEngine Capacity" + EngineCapacity + " \nMake:" + Make + " \nModel: " + Model + " \nYear:" + Year + " \nOwners ID: " + OwnerID ;
+     
       
       
   }
-            
+ public int getString() {
+          return plateNumber; 
+                  };           
 }
