@@ -14,7 +14,7 @@ public class LightVehicle extends Vehicle {
  private int Seats;
     
     
-public LightVehicle(int p, int e, String m, String m1,int y, int o, int n)  {
+public LightVehicle(String p, int e, String m, String m1,int y, int o, int n)  {
     
  super (p,e,m,m1,y,o);   
     

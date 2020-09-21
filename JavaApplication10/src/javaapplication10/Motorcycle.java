@@ -12,7 +12,7 @@ package javaapplication10;
 public class Motorcycle extends Vehicle {
   
     
-public Motorcycle(int p, int e, String m, String m1,int y, int o)  {
+public Motorcycle(String p, int e, String m, String m1,int y, int o)  {
     
  super (p,e,m,m1,y,o);   
     

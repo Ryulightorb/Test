@@ -45,13 +45,8 @@ public class VehicleRego extends JFrame implements ActionListener {
     private Panel fullmiddlePanel = new Panel();
     ArrayList<Owner> Owners = new ArrayList<Owner>();
     ArrayList<Vehicle> Vehicles = new ArrayList<Vehicle>();
-    String[] Plates = new String[Vehicles.size()];
+    static ArrayList<Accident> Accidents = new ArrayList<Accident>();
     
-    public String[] findPlate() {
-        
-    return (Plates);
-    
-    }
 
     
     
@@ -70,7 +65,7 @@ public class VehicleRego extends JFrame implements ActionListener {
         plateLabel = new JLabel("Plate Number");
         loadLabel = new JLabel("Load Capacity");
         seatLabel = new JLabel("Seat number");
-        engineLabel = new JLabel("Engine");
+        engineLabel = new JLabel("Engine Capacity (cc) ");
         makeLabel = new JLabel("Make");
         modelLabel = new JLabel("Model");
         yearLabel = new JLabel("Year");
@@ -207,7 +202,7 @@ public class VehicleRego extends JFrame implements ActionListener {
         add(fullmiddlePanel, BorderLayout.CENTER);
         add(lowerPanel, BorderLayout.SOUTH);
         pack();
-
+        // create owner button
         createOwner.addActionListener(event -> {
 
             if (privateRadio.isSelected()) {
@@ -242,12 +237,12 @@ public class VehicleRego extends JFrame implements ActionListener {
             }
 
         });
-
+        // create vehicle button
         createVehicle.addActionListener(event -> {
 
             if (motorcycleRadio.isSelected()) {
                 try {
-                    int plateNo = Integer.parseInt(plateField.getText());
+                    String plateNo = plateField.getText();
                     int engineCapacity = Integer.parseInt(engineField.getText());
                     String make = makeField.getText();
                     String model = modelField.getText();
@@ -262,7 +257,7 @@ public class VehicleRego extends JFrame implements ActionListener {
             }
             if (lightRadio.isSelected()) {
                 try {
-                    int plateNo = Integer.parseInt(plateField.getText());
+                    String plateNo = plateField.getText();
                     int engineCapacity = Integer.parseInt(engineField.getText());
                     String make = makeField.getText();
                     String model = modelField.getText();
@@ -279,7 +274,7 @@ public class VehicleRego extends JFrame implements ActionListener {
 
             if (heavyRadio.isSelected()) {
                 try {
-                    int plateNo = Integer.parseInt(plateField.getText());
+                    String plateNo = plateField.getText();
                     int engineCapacity = Integer.parseInt(engineField.getText());
                     String make = makeField.getText();
                     String model = modelField.getText();
@@ -295,7 +290,7 @@ public class VehicleRego extends JFrame implements ActionListener {
             }
 
         });
-
+         // search for owner button
         searchOwner.addActionListener(event -> {
 
             {
@@ -318,11 +313,11 @@ public class VehicleRego extends JFrame implements ActionListener {
                 }
             }
         });
-
+        //search for vehicle button
         searchVehicle.addActionListener(event -> {
 
             {
-                int mySearch1 = Integer.parseInt(JOptionPane.showInputDialog(null, "Please enter The Plate Number"));
+                String mySearch1 = JOptionPane.showInputDialog(null, "Please enter The Plate Number");
                 Vehiclelist = Vehicles.size();
                 for (Vehicle v : Vehicles) {
 
@@ -341,7 +336,7 @@ public class VehicleRego extends JFrame implements ActionListener {
                 }
             }
         });
-
+        // allows editing of the owner
         editOwner.addActionListener(event -> {
             int editInt = Integer.parseInt(JOptionPane.showInputDialog(null, "Please enter The Index you wish to edit"));
             if (privateRadio.isSelected()) {
@@ -378,12 +373,12 @@ public class VehicleRego extends JFrame implements ActionListener {
 
             }
         });
-
+        // allows the editing of vehicles
         editVehicle.addActionListener(event -> {
             int editInt1 = Integer.parseInt(JOptionPane.showInputDialog(null, "Please enter The Index you wish to edit"));
             if (motorcycleRadio.isSelected()) {
                 try {
-                    int plateNo = Integer.parseInt(plateField.getText());
+                    String plateNo = plateField.getText();
                     int engineCapacity = Integer.parseInt(engineField.getText());
                     String make = makeField.getText();
                     String model = modelField.getText();
@@ -399,7 +394,7 @@ public class VehicleRego extends JFrame implements ActionListener {
             }
             if (lightRadio.isSelected()) {
                 try {
-                    int plateNo = Integer.parseInt(plateField.getText());
+                    String plateNo = plateField.getText();
                     int engineCapacity = Integer.parseInt(engineField.getText());
                     String make = makeField.getText();
                     String model = modelField.getText();
@@ -417,7 +412,7 @@ public class VehicleRego extends JFrame implements ActionListener {
 
             if (heavyRadio.isSelected()) {
                 try {
-                    int plateNo = Integer.parseInt(plateField.getText());
+                    String plateNo = plateField.getText();
                     int engineCapacity = Integer.parseInt(engineField.getText());
                     String make = makeField.getText();
                     String model = modelField.getText();
@@ -433,30 +428,47 @@ public class VehicleRego extends JFrame implements ActionListener {
 
             }
         });
-
+        // clears the display
         clearButton.addActionListener(event -> {
             displayArea.setText("");
         });
-
+        // exit
         exitButton.addActionListener(event -> {
             System.exit(0);
         });
-            
+         // brings up entry  for accidents 
         accidentEntryButton.addActionListener(event -> {
             
-            
+        String[] Plates = new String[Vehicles.size()];    
         for (int i = 0; i < Vehicles.size(); i++) {
+               
         Plates[i] = String.valueOf(Vehicles.get(i).getPlateNumber()); 
          
         }
-        accidentCreate create = new accidentCreate();
+        
+        accidentCreate create = new accidentCreate(Plates);
         create.setVisible(true);
-        create.setSize(700, 465);
+        create.setSize(700, 185);
         
         
         });
     
-    }
+        
+        accidentViewButton.addActionListener(event -> {
+        displayArea.setText (Arrays.toString(Accidents.toArray()));
+        
+        
+        
+        
+        });
+        
+    }   // allows the main class to collect accidents.
+      public static void addAccident(int accidentID, String location, String date, String comments, String vehicleList){
+      Accidents.add(new Accident(accidentID,location,date,comments,vehicleList));
+      
+      }
+    
+
     public static void main(String[] args) {
         VehicleRego myApp = new VehicleRego();
         myApp.setVisible(true);

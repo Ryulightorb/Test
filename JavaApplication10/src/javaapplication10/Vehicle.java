@@ -11,7 +11,7 @@ package javaapplication10;
  */
 public class Vehicle {
  
-  private int plateNumber;
+  private String plateNumber;
   private int EngineCapacity;
   private String Make;
   private String Model;
@@ -19,7 +19,7 @@ public class Vehicle {
   private int OwnerID;
     
     
-    public Vehicle(int p, int e, String m, String m1,int y, int o)  {
+    public Vehicle(String p, int e, String m, String m1,int y, int o)  {
     
     plateNumber = p ;
     EngineCapacity = e ;
@@ -33,7 +33,7 @@ public class Vehicle {
     }
 
 
-    public void setPlateNumber(int plateNumber) {
+    public void setPlateNumber(String plateNumber) {
         this.plateNumber = plateNumber;
     }
 
@@ -57,7 +57,7 @@ public class Vehicle {
         this.OwnerID = OwnerID;
     }
 
-    public int getPlateNumber() {
+    public String getPlateNumber() {
         return plateNumber;
     }
 
@@ -88,7 +88,7 @@ public class Vehicle {
       
       
   }
- public int getString() {
+ public String getString() {
           return plateNumber; 
                   };           
 }

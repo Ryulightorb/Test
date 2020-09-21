@@ -26,7 +26,7 @@ public class Accident {
 
     @Override
     public String toString() {
-        return "Accident{" + "accidentID=" + accidentID + ", location=" + location + ", date=" + date + ", comments=" + comments + ", vehicleList=" + vehicleList + '}';
+        return "accidentID=" + accidentID + ", location=" + location + ", date=" + date + ", comments=" + comments + ", vehicleList=" + vehicleList;
     }
 
     public int getAccidentID() {

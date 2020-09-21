@@ -14,7 +14,7 @@ public class HeavyVehicle extends Vehicle {
  private int LoadCapacity;
     
     
-public HeavyVehicle(int p, int e, String m, String m1,int y, int o, int l)  {
+public HeavyVehicle(String p, int e, String m, String m1,int y, int o, int l)  {
     
  super (p,e,m,m1,y,o);   
     
