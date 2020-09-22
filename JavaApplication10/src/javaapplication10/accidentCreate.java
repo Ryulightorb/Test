@@ -8,9 +8,11 @@ package javaapplication10;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JLabel;
+
 
 /**
  *
@@ -39,7 +41,7 @@ ArrayList<Vehicle> Vehicles = new ArrayList<>();
  getContentPane().setBackground(new java.awt.Color(255, 218, 185));
  idLabel = new JLabel("Accident ID:");
  locationLabel = new JLabel("Location:");
- dateLabel = new JLabel("Date:");
+ dateLabel = new JLabel("Date: (YYYY-MM-DD)");
  commentsLabel = new JLabel(" Comments:");
  selectVehicleLabel = new JLabel(" Select Vehicles:");
  vehicleListLabel = new JLabel("Vehicles List");
@@ -48,7 +50,7 @@ ArrayList<Vehicle> Vehicles = new ArrayList<>();
  exitbutton = new JButton ("exit");
  
  
- idField = new JTextField(10);
+ idField = new JTextField(7);
  locationField = new JTextField(20);
  dateField = new JTextField(10);
  commentsField = new JTextField(50);
@@ -93,6 +95,21 @@ ArrayList<Vehicle> Vehicles = new ArrayList<>();
     int accidentID = Integer.parseInt(idField.getText()); 
     String location = locationField.getText();
     String date = dateField.getText();
+    LocalDate parse = LocalDate.parse(date);
+    LocalDate now = LocalDate.now() ;               // checks time
+    if(parse.isEqual(now)){                       // checks if date is valid
+    String comments = commentsField.getText();
+    String vehicleList = display.getText();
+    VehicleRego Rego = new VehicleRego();
+    Rego.addAccident(accidentID,location,date,comments,vehicleList); 
+    idField.setText("");
+    locationField.setText("");
+    dateField.setText("");
+    commentsField.setText("");
+    display.setText("");
+    JOptionPane.showMessageDialog(null,"Accident Filed Succesfully"); }
+    else
+    if(parse.isBefore(now)){                  // checks if date is valid
     String comments = commentsField.getText();
     String vehicleList = display.getText();
     VehicleRego Rego = new VehicleRego();
@@ -103,7 +120,12 @@ ArrayList<Vehicle> Vehicles = new ArrayList<>();
     commentsField.setText("");
     display.setText("");
     JOptionPane.showMessageDialog(null,"Accident Filed Succesfully"); 
-    } catch(Exception e) {  JOptionPane.showMessageDialog(null, "Please insert the right information Numbers only for Accident ID\n" + e);       }
+    
+    }
+    
+
+
+    } catch(Exception e) {  JOptionPane.showMessageDialog(null, "Please insert the right information Numbers only for Accident ID and a date before todays date\n" + e);       }
          
  });
  // the exit button duh
@@ -115,8 +137,6 @@ ArrayList<Vehicle> Vehicles = new ArrayList<>();
  
  }   
     
-    
-
     
     
     

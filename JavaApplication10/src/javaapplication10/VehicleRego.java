@@ -62,7 +62,7 @@ public class VehicleRego extends JFrame implements ActionListener {
         super("Vehicle/License Registration system");  // set name
         // Instantiate components
         getContentPane().setBackground(new java.awt.Color(255, 218, 185));
-        plateLabel = new JLabel("Plate Number");
+        plateLabel = new JLabel("Plate Number");  
         loadLabel = new JLabel("Load Capacity");
         seatLabel = new JLabel("Seat number");
         engineLabel = new JLabel("Engine Capacity (cc) ");
@@ -83,14 +83,14 @@ public class VehicleRego extends JFrame implements ActionListener {
         privateLabel = new JLabel("Private");
         corporateLabel = new JLabel("Corporate");
 
-        IDField = new JTextField(15);
+        IDField = new JTextField(15);  // create fields
         ABNField = new JTextField(15);
         DOBField = new JTextField(15);
         FnameField = new JTextField(15);
         LnameField = new JTextField(15);
         AdressField = new JTextField(15);
         PhField = new JTextField(15);
-        plateField = new JTextField(15);
+        plateField = new JTextField(6);
         loadField = new JTextField(15);
         seatField = new JTextField(15);
         engineField = new JTextField(15);
