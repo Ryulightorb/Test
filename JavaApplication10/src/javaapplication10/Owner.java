@@ -75,7 +75,7 @@ return "ID:" + id + " \nFirst Name: " + Fname + " \nLast Name:" + Lname + " \nAd
 
 public String getall() {
 
-return id + "\n" + Fname + "\n" + Lname + "\n" + Address + "\n" + Ph +"\n";
+return id + "," + Fname + "," + Lname + "," + Address + "," + Ph +",";
 
 }
 

@@ -447,7 +447,7 @@ public class VehicleRego extends JFrame implements ActionListener {
           String outputText = Owners.get(i).getall();
           
              try {
-                 saveTofile("Owners.txt", outputText,true);
+                 saveTofile("Owners.txt", outputText,false);
              } catch (IOException ex) {
                  Logger.getLogger(VehicleRego.class.getName()).log(Level.SEVERE, null, ex);
              }
@@ -503,41 +503,56 @@ public class VehicleRego extends JFrame implements ActionListener {
         myApp.setSize(1400, 465);
         myApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        File fileText = new File("Owners.txt");
-        Scanner s = new Scanner(fileText);
-        
-	    
-
-         
        
+        
+	      
+       int count=0;
+		String inLine;
+
+		FileReader reader=new FileReader("owners.txt");
+
+		Scanner fileIn=new Scanner(reader);
+
+		while(fileIn.hasNextLine())
+		{
+			String line=fileIn.nextLine();// read a line
+			count++;
+			Scanner lineIn=new Scanner(line);//another Scanner to deal a line
+                        lineIn.useDelimiter(",");
+			while(lineIn.hasNext())
+			{
+				int id= lineIn.nextInt();  
+				String Fname=lineIn.next(); 
+                                String Lname=lineIn.next(); 
+                                String Address=lineIn.next(); 
+                                int ph=lineIn.nextInt();
+                                String DOB =lineIn.next();
+                                int ABN =lineIn.nextInt();
+
+				System.out.println(id+"  "+Fname+""+Lname+"  "+Address+"  "+ph+"  "+ DOB+"  "+ ABN);
+                                if(ABN > 0){
+                                Owners.add(new corporateOwner(id, Fname, Lname, Address, ph, DOB,ABN));
+                               } else 
+                                Owners.add(new privateOwner(id, Fname, Lname, Address, ph, DOB,ABN));
+		    }
+
+	    }
+
+	    System.out.println("Total number of book entries: "+count);
+
+		reader.close();
+    
+
 
 	
 
-		while(s.hasNextLine())
-		{
-			
-			
-				String id= s.next();  
-				String Fname=s.nextLine(); 
-                                String Lname=s.nextLine(); 
-                                String Address=s.nextLine(); 
-                                int ph=s.nextInt();
-                                String DOB =s.nextLine();
-                                String ABN =s.nextLine();
-
-				System.out.println(id+"  "+Fname+""+Lname+"  "+Address+"  "+ph+"  "+ DOB+"  "+ ABN);
-                                int idfinal = Integer.valueOf(id);
-                                int phfinal = Integer.valueOf(ph);
-                                int ABNfinal = Integer.valueOf(ABN);
+		
                                 
-                                if(ABNfinal > 0){
-                                Owners.add(new corporateOwner(idfinal, Fname, Lname, Address, phfinal, DOB,ABNfinal));
-                                } else 
-                                Owners.add(new privateOwner(idfinal, Fname, Lname, Address, phfinal, DOB,ABNfinal));
+                              //  
                                 
                                // idinsert = parseInt(String id);
                                // 
-		    }
+		    
 
 	    }
 

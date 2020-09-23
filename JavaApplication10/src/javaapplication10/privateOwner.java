@@ -46,7 +46,7 @@ public privateOwner(int i, String F,String L,String A,int P,String D, int AB) {
     
    public String getall(){
    
-   return super.getall() + DOB + "\n"+ ABN+ "\n";
+   return super.getall() + DOB + ","+ ABN+ ",";
    
    
    } 
