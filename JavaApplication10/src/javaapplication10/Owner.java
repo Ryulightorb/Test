@@ -70,10 +70,14 @@ Ph = P;
 
 
 public String toString() {           
-return "ID:" + id + " \nFirst Name " + Fname + " \nLast Name:" + Lname + " \nAddress: " + Address + " \nPhone Number:" + Ph ;
+return "ID:" + id + " \nFirst Name: " + Fname + " \nLast Name:" + Lname + " \nAddress: " + Address + " \nPhone Number:" + Ph ;
 }
 
+public String getall() {
 
+return id + "\n" + Fname + "\n" + Lname + "\n" + Address + "\n" + Ph +"\n";
+
+}
 
 
 

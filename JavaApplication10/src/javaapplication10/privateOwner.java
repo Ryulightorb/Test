@@ -11,14 +11,23 @@ package javaapplication10;
  */
 public class privateOwner extends Owner {
  private String DOB;   
+  private int ABN;  
  
  
  
- 
-public privateOwner(int i, String F,String L,String A,int P,String D) {
+public privateOwner(int i, String F,String L,String A,int P,String D, int AB) {
         super(i,F,L,A,P);
  DOB = D;
+ ABN = AB;
 }
+
+    public int getABN() {
+        return ABN;
+    }
+
+    public void setABN(int ABN) {
+        this.ABN = ABN;
+    }
 
     public String getDOB() {
         return DOB;
@@ -34,4 +43,19 @@ public privateOwner(int i, String F,String L,String A,int P,String D) {
              DOB;
    } 
  
+    
+   public String getall(){
+   
+   return super.getall() + DOB + "\n"+ ABN+ "\n";
+   
+   
+   } 
+    
+    
+    
+    
+    
+    
+    
+    
 }

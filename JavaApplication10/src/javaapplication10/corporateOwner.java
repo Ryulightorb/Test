@@ -11,14 +11,23 @@ package javaapplication10;
  */
 public class corporateOwner extends Owner {
  private int ABN;   
+  private String DOB;
  
  
  
- 
-public corporateOwner(int i, String F,String L,String A,int P,int AB) {
+public corporateOwner(int i, String F,String L,String A,int P,String D, int AB) {
         super(i,F,L,A,P);
  ABN = AB;
+ DOB = D;
 }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
 
     public int getABN() {
         return ABN;
@@ -29,8 +38,15 @@ public corporateOwner(int i, String F,String L,String A,int P,int AB) {
     }
    public String toString()
    {
-      return " "+super.toString() + "    /nAustralian Buisness Number: " +
+      return " "+super.toString() + "    \nAustralian Buisness Number: " +
              ABN;
    } 
  
+   public String getall(){
+   
+   return super.getall() + DOB + "\n"+ ABN+ "\n";
+   
+   
+   }
+   
 }

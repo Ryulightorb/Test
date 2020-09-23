@@ -10,6 +10,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -43,12 +45,17 @@ public class VehicleRego extends JFrame implements ActionListener {
     private Panel lowerPanel = new Panel(); // creates panels
     private Panel mainPanel = new Panel();
     private Panel fullmiddlePanel = new Panel();
-    ArrayList<Owner> Owners = new ArrayList<Owner>();
+    static ArrayList<Owner> Owners = new ArrayList<Owner>();
     ArrayList<Vehicle> Vehicles = new ArrayList<Vehicle>();
     static ArrayList<Accident> Accidents = new ArrayList<Accident>();
     
 
+    public static Object getArray(){
     
+     return Accidents.clone();
+    
+    
+    }
     
     
     
@@ -214,7 +221,7 @@ public class VehicleRego extends JFrame implements ActionListener {
                     String Adress = AdressField.getText();
                     int Phone = Integer.parseInt(PhField.getText());
                     displayArea.setText("Owner Added");
-                    Owners.add(new privateOwner(ID, Fname, Lname, Adress, Phone, DOB));
+                    Owners.add(new privateOwner(ID, Fname, Lname, Adress, Phone, DOB,ABN));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please insert the right formatting\n" + ex);
                 }
@@ -229,7 +236,7 @@ public class VehicleRego extends JFrame implements ActionListener {
                     String Adress = AdressField.getText();
                     int Phone = Integer.parseInt(PhField.getText());
                     displayArea.setText("Owner Added");
-                    Owners.add(new corporateOwner(ID, Fname, Lname, Adress, Phone, ABN));
+                    Owners.add(new corporateOwner(ID, Fname, Lname, Adress, Phone,DOB, ABN));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please insert the right formatting\n" + ex);
                 }
@@ -349,7 +356,7 @@ public class VehicleRego extends JFrame implements ActionListener {
                     Phone = Integer.parseInt(PhField.getText());
                     displayArea.setText("Index Edited");
                     Owners.remove(editInt);
-                    Owners.add(editInt, new privateOwner(ID, Fname, Lname, Adress, Phone, DOB));
+                    Owners.add(editInt, new privateOwner(ID, Fname, Lname, Adress, Phone, DOB,ABN));
 
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please insert the right formatting\n" + ex);
@@ -366,7 +373,7 @@ public class VehicleRego extends JFrame implements ActionListener {
                     Phone = Integer.parseInt(PhField.getText());
                     displayArea.setText("Index Edited");
                     Owners.remove(editInt);
-                    Owners.add(editInt, new corporateOwner(ID, Fname, Lname, Adress, Phone, ABN));
+                    Owners.add(editInt, new corporateOwner(ID, Fname, Lname, Adress, Phone,DOB, ABN));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please insert the right formatting\n" + ex);
                 }
@@ -434,6 +441,21 @@ public class VehicleRego extends JFrame implements ActionListener {
         });
         // exit
         exitButton.addActionListener(event -> {
+            
+ 
+         for(int i = 0;i < Owners.size(); i++){
+          String outputText = Owners.get(i).getall();
+          
+             try {
+                 saveTofile("Owners.txt", outputText,true);
+             } catch (IOException ex) {
+                 Logger.getLogger(VehicleRego.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
+            
+            
+            
+            
             System.exit(0);
         });
          // brings up entry  for accidents 
@@ -455,9 +477,15 @@ public class VehicleRego extends JFrame implements ActionListener {
     
         
         accidentViewButton.addActionListener(event -> {
-        displayArea.setText (Arrays.toString(Accidents.toArray()));
         
-        
+                String[] accidentviews = new String[Vehicles.size()];    
+        for (int i = 0; i < Vehicles.size(); i++) {
+               
+        accidentviews[i] = String.valueOf(Vehicles.get(i).getPlateNumber()); 
+        }
+        accidentview view = new accidentview(accidentviews);
+        view.setVisible(true);
+        view.setSize(700, 185);
         
         
         });
@@ -469,16 +497,108 @@ public class VehicleRego extends JFrame implements ActionListener {
       }
     
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         VehicleRego myApp = new VehicleRego();
         myApp.setVisible(true);
         myApp.setSize(1400, 465);
         myApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+        
+        File fileText = new File("Owners.txt");
+        Scanner s = new Scanner(fileText);
+        
+	    
 
-    @Override
+         
+       
+
+	
+
+		while(s.hasNextLine())
+		{
+			
+			
+				String id= s.next();  
+				String Fname=s.nextLine(); 
+                                String Lname=s.nextLine(); 
+                                String Address=s.nextLine(); 
+                                int ph=s.nextInt();
+                                String DOB =s.nextLine();
+                                String ABN =s.nextLine();
+
+				System.out.println(id+"  "+Fname+""+Lname+"  "+Address+"  "+ph+"  "+ DOB+"  "+ ABN);
+                                int idfinal = Integer.valueOf(id);
+                                int phfinal = Integer.valueOf(ph);
+                                int ABNfinal = Integer.valueOf(ABN);
+                                
+                                if(ABNfinal > 0){
+                                Owners.add(new corporateOwner(idfinal, Fname, Lname, Address, phfinal, DOB,ABNfinal));
+                                } else 
+                                Owners.add(new privateOwner(idfinal, Fname, Lname, Address, phfinal, DOB,ABNfinal));
+                                
+                               // idinsert = parseInt(String id);
+                               // 
+		    }
+
+	    }
+
+	   
+
+		
+        
+        
+        
+        
+      @Override
     public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    }   
+        
+        
+       
+     public static void saveTofile(String Filename, String text, boolean append) throws IOException {
+  
+  File file1 = new File(Filename);
+  // creats the file
+  
+  
+  // creates the file writer
+  FileWriter fw = new FileWriter(file1, append);
+  
+  
+  // create printer
+  
+  PrintWriter pw = new PrintWriter(fw);
+  
+  pw.println(text);
+  pw.close();
+  
+  
+  
+  }           
+                
+    public void createPrivateOwners( int idfinal,String Fname,String Lname,String Address,int ph,String DOB, int ABNfinal){
+    
+    Owners.add(new privateOwner(idfinal, Fname, Lname, Address, ph, DOB,ABNfinal));
+    } 
 }
+    
+    
+    
+
+    
+   
+
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
